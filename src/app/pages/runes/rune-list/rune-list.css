@@ -1,0 +1,326 @@
+/* ==================== RUNES LIST ====================
+  - Loading / error states
+  - Search form and no-results messaging
+  - Grid & card layout for rune trees
+  - Image wrapper, overlays and responsive breakpoints
+*/
+/* Copiato e adattato dallo stile di item-list */
+.loading {
+  text-align: center;
+  padding: 3rem;
+  color: var(--accent-blue);
+  font-size: 1.2rem;
+  animation: fadeIn 0.6s ease-out;
+}
+
+.loading p {
+  margin: 0;
+  text-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+}
+
+.error {
+  text-align: center;
+  padding: 2rem;
+  color: #ff6b6b;
+  background: rgba(255, 107, 107, 0.1);
+  border: 1px solid rgba(255, 107, 107, 0.3);
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+.error p {
+  margin: 0;
+}
+
+/* Search Form */
+form {
+  display: flex;
+  gap: 1rem;
+  margin: 2rem 0;
+  padding: 1.2rem;
+  background: linear-gradient(135deg, rgba(26, 31, 58, 0.8) 0%, rgba(10, 14, 39, 0.8) 100%);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  border-radius: 8px;
+}
+
+form input {
+  flex: 1;
+  padding: 0.8rem 1.2rem;
+  background: rgba(10, 14, 39, 0.9);
+  border: 1px solid rgba(0, 212, 255, 0.4);
+  border-radius: 6px;
+  color: var(--text-primary);
+  font-size: 1rem;
+  outline: none;
+}
+
+form input::placeholder {
+  color: var(--text-secondary);
+}
+
+form input:focus {
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 16px rgba(0, 212, 255, 0.3);
+  background: rgba(10, 14, 39, 0.95);
+}
+
+/* No Results Message */
+.no-results {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--accent-blue);
+  font-size: 1.2rem;
+  animation: fadeIn 0.6s ease-out;
+}
+
+.no-results p {
+  margin: 0;
+}
+
+/* Runes Grid - Card Style (larger since only 5 primary trees) */
+.runes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  padding: 1rem;
+}
+
+.rune-card {
+  background: rgba(10, 14, 39, 0.95);
+  border: 2px solid rgba(0, 212, 255, 0.12);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.32s ease;
+  cursor: pointer;
+  animation: slideUp 0.45s ease-out;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+}
+
+.rune-card:hover {
+  border-color: var(--accent-blue);
+  box-shadow: 0 10px 24px rgba(0, 212, 255, 0.22);
+  transform: translateY(-5px);
+}
+
+/* Image Wrapper with Overlay */
+.rune-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 160px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #1a1f3a 0%, #0a0e27 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rune-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  transition: transform 0.28s ease;
+  padding: 10px;
+}
+
+.rune-card:hover .rune-image {
+  transform: scale(1.05);
+}
+
+/* Overlay with Tags */
+.rune-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(0, 0, 0, 0.9) 60%,
+    rgba(0, 0, 0, 0.95) 100%
+  );
+  padding: 0.5rem 0.5rem 0.4rem;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: all 0.16s ease;
+}
+
+.rune-card:hover .rune-overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.rune-tags {
+  color: var(--accent-gold);
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.32px;
+  margin: 0;
+  text-shadow: 0 0 4px rgba(255, 215, 0, 0.3);
+}
+
+/* Rune Info */
+.rune-info {
+  padding: 1rem 0.85rem;
+  background: linear-gradient(180deg, rgba(26, 31, 58, 0.7) 0%, rgba(10, 14, 39, 0.9) 100%);
+  border-top: 1px solid rgba(0, 212, 255, 0.14);
+}
+
+.rune-info h3 {
+  color: var(--accent-blue);
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin: 0;
+}
+
+/* Animations */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Responsive */
+/* Mobile: < 480px */
+@media (max-width: 479px) {
+  form {
+    flex-direction: column;
+    gap: 0.6rem;
+    margin: 1.5rem 1rem;
+    padding: 0.8rem;
+  }
+
+  form input {
+    width: 100%;
+    padding: 0.6rem 0.8rem;
+    font-size: 0.9rem;
+  }
+
+  .runes-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+    padding: 0.5rem;
+    margin-top: 0.8rem;
+  }
+
+  .rune-image-wrapper {
+    height: 80px;
+  }
+
+  .rune-info {
+    padding: 0.6rem 0.5rem;
+  }
+
+  .rune-info h3 {
+    font-size: 0.7rem;
+  }
+
+  .rune-tags {
+    font-size: 0.6rem;
+  }
+}
+
+/* Tablet: 480px - 768px */
+@media (min-width: 480px) and (max-width: 768px) {
+  form {
+    flex-direction: column;
+    gap: 0.8rem;
+    margin: 1.5rem 1rem;
+    padding: 1rem;
+  }
+
+  form input {
+    width: 100%;
+    padding: 0.7rem 1rem;
+  }
+
+  .runes-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.8rem;
+    padding: 0.8rem;
+    margin-top: 1rem;
+  }
+
+  .rune-image-wrapper {
+    height: 100px;
+  }
+
+  .rune-info {
+    padding: 0.8rem 0.6rem;
+  }
+
+  .rune-info h3 {
+    font-size: 0.8rem;
+  }
+
+  .rune-tags {
+    font-size: 0.65rem;
+  }
+}
+
+/* Small Desktop: 769px - 1024px */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .runes-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1rem;
+  }
+
+  .rune-image-wrapper {
+    height: 130px;
+  }
+
+  .rune-info h3 {
+    font-size: 0.9rem;
+  }
+}
+
+/* Large Desktop: 1025px - 1440px */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .runes-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.2rem;
+  }
+
+  .rune-image-wrapper {
+    height: 150px;
+  }
+}
+
+/* Ultra Wide: > 1440px */
+@media (min-width: 1441px) {
+  .runes-grid {
+    max-width: 1700px;
+    margin: 1.5rem auto;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.8rem;
+    padding: 2rem;
+  }
+
+  form {
+    max-width: 1700px;
+    margin: 2rem auto;
+  }
+
+  .rune-image-wrapper {
+    height: 180px;
+  }
+}

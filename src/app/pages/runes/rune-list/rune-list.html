@@ -1,0 +1,40 @@
+@if (loading()) {
+<div class="loading">
+  <p>Caricamento rune in corso...</p>
+</div>
+} @if (error()) {
+<div class="error">
+  <p>{{ error() }}</p>
+</div>
+}
+
+<div class="runes-grid">
+  @if (filtered().length === 0 && searchTerm() && !loading()) {
+  <div class="no-results">
+    <p>
+      Nessuna runa trovata per "<strong>{{ searchTerm() }}</strong
+      >"
+    </p>
+  </div>
+  } @for (rune of filtered(); track rune.key) {
+  <div class="rune-card" [routerLink]="['/rune', rune.key]">
+    <div class="rune-image-wrapper">
+      <img
+        [src]="getRuneImageUrl(rune)"
+        [alt]="rune.name"
+        class="rune-image"
+        loading="lazy"
+        (error)="onImageError($event)"
+      />
+
+      <div class="rune-overlay">
+        <p class="rune-tags">{{ rune.key }}</p>
+      </div>
+    </div>
+
+    <div class="rune-info">
+      <h3>{{ rune.name }}</h3>
+    </div>
+  </div>
+  }
+</div>

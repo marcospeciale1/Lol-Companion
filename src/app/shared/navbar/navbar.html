@@ -1,0 +1,15 @@
+<nav>
+  <a routerLink="/" class="navbar-logo-link" aria-label="Home">
+    <img src="/logo.png" alt="LOL Companion Logo" class="navbar-logo" width="48" height="48" />
+  </a>
+  <ul class="navbar-menu">
+    <li>
+      <a routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }"
+        >Home</a
+      >
+    </li>
+    <li><a routerLink="/champions" routerLinkActive="active-link">Champions</a></li>
+    <li><a routerLink="/items" routerLinkActive="active-link">Items</a></li>
+    <li><a routerLink="/runes" routerLinkActive="active-link">Runes</a></li>
+  </ul>
+</nav>

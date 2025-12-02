@@ -1,0 +1,136 @@
+<!-- Loading State -->
+@if (loading) {
+<div class="loading-state">
+  <div class="loading-container">
+    <div class="spinner"></div>
+    <p>Caricamento oggetto...</p>
+  </div>
+</div>
+}
+
+<!-- Error State -->
+@if (!loading && error) {
+<div class="error-container">
+  <p>{{ error }}</p>
+  <a routerLink="/items" class="btn-back">Torna agli oggetti</a>
+</div>
+}
+
+<!-- Item Detail -->
+@if (!loading && item) {
+<div class="item-detail-container">
+  <!-- Hero Section -->
+  <div class="hero-section">
+    <div class="hero-content">
+      <a routerLink="/items" class="btn-back">← Torna agli oggetti</a>
+
+      <div class="hero-main">
+        <img
+          [src]="getItemImageUrl()"
+          [alt]="item.name"
+          (error)="onImageError($event)"
+          class="item-image-hero"
+        />
+
+        <div class="hero-meta">
+          <h1>{{ item.name }}</h1>
+          <p class="gold-cost">
+            Costo:
+            <span class="gold-amount"> {{ item.gold?.total || item.gold?.base || 0 }}g </span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="content-wrapper">
+    <!-- Left Column -->
+    <div class="left-column">
+      <!-- Descrizione -->
+      <div class="card">
+        <h2>Descrizione</h2>
+        <p class="full-description">{{ item.plaintext }}</p>
+      </div>
+
+      <!-- Statistiche -->
+      @if (filteredStats && objectKeys(filteredStats).length > 0) {
+      <div class="card">
+        <h2>Statistiche</h2>
+
+        <div class="stats-list">
+          @for (key of objectKeys(filteredStats); track key) {
+          <div class="stat-row">
+            <span class="stat-label">{{ getStatName(key) }}</span>
+            <span class="stat-value">{{ filteredStats[key] }}</span>
+          </div>
+          }
+        </div>
+      </div>
+
+      } @else {
+      <div class="card">
+        <p class="fallback-text">Nessuna statistica.</p>
+      </div>
+      }
+    </div>
+
+    <!-- Right Column -->
+    <div class="right-column">
+      <!-- Componenti Richiesti (From) -->
+      <div class="card">
+        <h2>Componenti Richiesti</h2>
+
+        @if (item._fromItems && item._fromItems.length > 0) {
+        <div class="components-grid">
+          @for (comp of item._fromItems; track comp.id) {
+          <div class="component-item">
+            <a [routerLink]="['/item', comp.id]" class="comp-link">
+              <img
+                [src]="getComponentImageUrl(comp.image)"
+                [alt]="comp.name"
+                (error)="onImageError($event)"
+                class="comp-image"
+              />
+
+              <p class="comp-name">{{ comp.name }}</p>
+            </a>
+          </div>
+          }
+        </div>
+
+        } @else {
+        <p class="fallback-text">Nessun componente.</p>
+        }
+      </div>
+
+      <!-- Oggetti che lo usano (Into) -->
+      <div class="card">
+        <h2>Oggetti che lo usano</h2>
+
+        @if (item._intoItems && item._intoItems.length > 0) {
+        <div class="components-grid">
+          @for (comp of item._intoItems; track comp.id) {
+          <div class="component-item">
+            <a [routerLink]="['/item', comp.id]" class="comp-link">
+              <img
+                [src]="getComponentImageUrl(comp.image)"
+                [alt]="comp.name"
+                (error)="onImageError($event)"
+                class="comp-image"
+              />
+
+              <p class="comp-name">{{ comp.name }}</p>
+            </a>
+          </div>
+          }
+        </div>
+
+        } @else {
+        <p class="fallback-text">Non usato per altri oggetti.</p>
+        }
+      </div>
+    </div>
+  </div>
+</div>
+}

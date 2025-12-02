@@ -1,0 +1,90 @@
+<!-- Loading State -->
+@if (loading) {
+<div class="loading-state">
+  <div class="loading-container">
+    <div class="spinner"></div>
+    <p>Caricamento albero di rune...</p>
+  </div>
+</div>
+}
+
+<!-- Error State -->
+@if (!loading && error) {
+<div class="error-container">
+  <p>{{ error }}</p>
+  <a routerLink="/runes" class="btn-back">Torna alle rune</a>
+</div>
+}
+
+<!-- Rune Tree Detail -->
+@if (!loading && runeTree) {
+<div class="rune-detail-container">
+  <!-- Hero Section -->
+  <div class="hero-section" [style.background-color]="'#1a1a2e'">
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+      <a routerLink="/runes" class="btn-back">← Torna alle rune</a>
+
+      <div class="hero-title">
+        <img
+          [src]="getRuneImageUrl(runeTree.icon)"
+          [alt]="runeTree.name"
+          class="rune-tree-icon"
+          (error)="onImageError($event)"
+          style="width: 80px; height: 80px; object-fit: contain; margin-right: 20px"
+        />
+
+        <div>
+          <h1>{{ runeTree.name }}</h1>
+          <p class="rune-key">{{ runeTree.key }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="content-wrapper">
+    <!-- Rune Slots -->
+    <div class="runes-slots">
+      @for (slot of runeTree.slots; let slotIndex = $index; track slotIndex) {
+      <div class="rune-slot">
+        <h2>Riga {{ slotIndex + 1 }}</h2>
+
+        <div class="runes-grid">
+          @for (rune of slot.runes; track rune.id) {
+          <div
+            class="rune-item"
+            [class.hovered]="hoveredRuneId === rune.id"
+            (mouseenter)="setHoveredRune(rune.id)"
+            (mouseleave)="setHoveredRune(null)"
+          >
+            <div class="rune-card">
+              <img
+                [src]="getRuneImageUrl(rune.icon)"
+                [alt]="rune.name"
+                class="rune-img"
+                (error)="onImageError($event)"
+              />
+
+              @if (hoveredRuneId === rune.id) {
+              <div class="rune-tooltip">
+                <h3>{{ rune.name }}</h3>
+                <p class="rune-short-desc">
+                  {{ sanitizeHtml(rune.shortDesc) }}
+                </p>
+                <p class="rune-long-desc">
+                  {{ sanitizeHtml(rune.longDesc) }}
+                </p>
+              </div>
+              }
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+</div>
+}

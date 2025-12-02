@@ -1,0 +1,139 @@
+/* ==================== GLOBAL STYLES: OVERVIEW ====================
+   Global stylesheet for LoL Companion.
+   Sections:
+   - Layout base
+   - Theme tokens (CSS variables)
+   - Responsive helpers and utilities
+   These comments are only descriptive and do not modify behavior.
+*/
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+/* ==================== LAYOUT BASE ====================
+   Root layout rules ensuring the app stretches full height and
+   that `app-root` / `main` can act as flex containers.
+*/
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* app-root deve essere un flex container */
+app-root {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* il main occupa tutto lo spazio disponibile */
+main {
+  flex: 1;
+  display: block;
+}
+
+/* Dark Aesthetic Theme - LOL Companion */
+
+:root {
+  /* Colori Principali */
+  --primary-dark: #0a0e27;
+  --secondary-dark: #1a1f3a;
+  --accent-blue: #00d4ff;
+  --accent-gold: #ffd700;
+  --text-primary: #e0e0e0;
+  --text-secondary: #a0a0a0;
+  --border-color: #00d4ff33;
+  --shadow: 0 8px 32px rgba(0, 212, 255, 0.1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+  color: var(--text-primary);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--primary-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent-blue);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-gold);
+}
+
+/* ==================== RESPONSIVE HELPERS & BREAKPOINTS ==================== */
+:root {
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+}
+
+/* Make images and media scale nicely */
+img,
+video,
+picture {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* Utility spacing for small screens */
+.stack {
+  display: block;
+}
+
+/* Responsive typography adjustments */
+@media (max-width: 768px) {
+  body {
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 769px) {
+  body {
+    font-size: 16px;
+  }
+}
+
+/* Helper for two-column -> single column stacks */
+.responsive-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+@media (max-width: 768px) {
+  .responsive-columns {
+    grid-template-columns: 1fr;
+  }
+}

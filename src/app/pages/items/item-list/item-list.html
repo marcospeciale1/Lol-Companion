@@ -1,0 +1,54 @@
+<form>
+  <input
+    type="search"
+    name="search-item"
+    id="search-item"
+    placeholder="Cerca oggetti..."
+    [value]="searchTerm()"
+    (input)="onSearch($event)"
+  />
+</form>
+
+@if (loading()) {
+<div class="loading">
+  <p>Caricamento oggetti in corso...</p>
+</div>
+} @if (error()) {
+<div class="error">
+  <p>{{ error() }}</p>
+</div>
+}
+
+<div class="items-grid">
+  @if (filtered().length === 0 && searchTerm() && !loading()) {
+  <div class="no-results">
+    <p>
+      Nessun oggetto trovato per "<strong>{{ searchTerm() }}</strong
+      >"
+    </p>
+  </div>
+  } @for (item of filtered(); track item.id) {
+  <div class="item-card" [routerLink]="['/item', item.id]">
+    <div class="item-image-wrapper">
+      <img
+        [src]="getItemImageUrl(item)"
+        [alt]="item.name"
+        class="item-image"
+        loading="lazy"
+        (error)="onImageError($event)"
+      />
+
+      <div class="item-overlay">
+        <p class="item-tags">
+          {{ getOverlayText(item) }}
+        </p>
+      </div>
+    </div>
+
+    <div class="item-info">
+      <h3>{{ item.name }}</h3>
+      <p class="title">{{ item.plaintext }}</p>
+    </div>
+  </div>
+  }
+</div>

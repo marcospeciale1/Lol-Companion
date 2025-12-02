@@ -1,0 +1,202 @@
+<!-- Loading State -->
+@if (loading) {
+<div class="loading-state">
+  <div class="loading-container">
+    <div class="spinner"></div>
+    <p>Caricamento campione...</p>
+  </div>
+</div>
+}
+
+<!-- Error State -->
+@if (!loading && error) {
+<div class="error-container">
+  <p>{{ error }}</p>
+  <a routerLink="/champions" class="btn-back">Torna ai campioni</a>
+</div>
+}
+
+<!-- Champion Detail / Fallback -->
+@if (!loading && champion) {
+<div class="champion-detail-container">
+  <!-- Hero Section -->
+  <div
+    class="hero-section"
+    [style.background-image]="
+      'url(' + (champion ? getSplashUrl() : 'assets/default-splash.jpg') + ')'
+    "
+    style="
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      min-height: 600px;
+      height: 50vh;
+    "
+  >
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <a routerLink="/champions" class="btn-back">← Torna ai campioni</a>
+      <h1>{{ champion?.name || 'Campione non trovato' }}</h1>
+      <p class="title">{{ champion?.title || '' }}</p>
+
+      <div class="tags">
+        @for (tag of champion?.tags ?? []; track tag) {
+        <span class="tag">{{ tag }}</span>
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="content-wrapper">
+    <!-- Left Column -->
+    <div class="left-column">
+      <!-- Combat Stats -->
+      @if (champion?.info) {
+      <div class="card">
+        <h2>Statistiche di Combattimento</h2>
+        <div class="combat-stats">
+          @for (key of ['attack', 'defense', 'magic', 'difficulty']; track key) {
+          <div class="stat-row">
+            <span class="label">{{ key | titlecase }}</span>
+            <div class="stat-bar">
+              <div class="stat-fill" [style.width.%]="champion?.info?.[key] * 10"></div>
+            </div>
+            <span class="value">{{ champion?.info?.[key] }}/10</span>
+          </div>
+          }
+        </div>
+      </div>
+      } @else {
+      <p class="fallback-text">Statistiche non disponibili.</p>
+      }
+
+      <!-- Base Stats -->
+      @if (champion?.stats) {
+      <div class="card">
+        <h2>Statistiche di Base</h2>
+        <div class="base-stats">
+          @for (stat of ['hp', 'mp', 'armor', 'spellblock', 'attackdamage', 'movespeed']; track
+          stat) {
+          <div class="base-stat">
+            <span class="label">{{ stat | titlecase }}</span>
+            <span class="value">{{ champion?.stats?.[stat] }}</span>
+          </div>
+          }
+        </div>
+      </div>
+      } @else {
+      <p class="fallback-text">Statistiche di base non disponibili.</p>
+      }
+
+      <!-- Lore -->
+      <div class="card">
+        <h2>Lore</h2>
+        <p class="lore">{{ champion?.lore || champion?.blurb || 'Lore non disponibile.' }}</p>
+      </div>
+    </div>
+
+    <!-- Right Column -->
+    <div class="right-column">
+      <!-- Passive -->
+      @if (champion?.passive) {
+      <div class="card passive-card">
+        <div class="ability-header">
+          <img
+            [src]="getPassiveIconUrl(champion.passive?.image?.full)"
+            [alt]="champion.passive?.name"
+            class="ability-icon passive-icon"
+            (error)="onImageError($event)"
+            style="
+              width: 64px;
+              height: 64px;
+              object-fit: contain;
+              background: #222;
+              border-radius: 8px;
+              border: 2px solid #444;
+              margin-right: 12px;
+            "
+          />
+          <div>
+            <h3>{{ champion.passive?.name }}</h3>
+            <p class="ability-type">Passiva</p>
+          </div>
+        </div>
+        <p class="description">{{ champion.passive?.description }}</p>
+      </div>
+      } @else {
+      <p class="fallback-text">Passiva non disponibile.</p>
+      }
+
+      <!-- Spells -->
+      @if (champion?.spells?.length) {
+      <div class="card">
+        <h2>Abilità</h2>
+
+        <div class="spells-grid">
+          @for (spell of champion?.spells; let i = $index; track i) {
+          <div
+            class="spell-item"
+            [class.active]="selectedSpellIndex === i"
+            (click)="selectSpell(i)"
+          >
+            <img
+              [src]="getAbilityIconUrl(spell.image?.full || spell.abilityIconPath)"
+              [alt]="spell.name"
+              (error)="onImageError($event)"
+            />
+            <p>{{ spell.name }}</p>
+          </div>
+          }
+        </div>
+
+        @if (selectedSpellIndex !== null) {
+        <div class="selected-spell-description">
+          <h3>{{ champion.spells[selectedSpellIndex]?.name }}</h3>
+          <p class="ability-type">Abilità</p>
+          <p class="description">
+            {{ champion.spells[selectedSpellIndex]?.description }}
+          </p>
+        </div>
+        }
+      </div>
+      } @else {
+      <p class="fallback-text">Abilità non disponibili.</p>
+      }
+    </div>
+  </div>
+
+  <!-- Skins Section -->
+  <div class="skins-section">
+    @if (champion?.skins?.length) {
+    <div class="skins-container">
+      <h2>Skin Disponibili</h2>
+
+      <div class="skins-grid">
+        @for (skin of champion.skins; track skin.num) {
+        <div
+          class="skin-card"
+          [class.selected]="selectedSkinNum === skin.num"
+          (click)="selectSkin(skin.num)"
+        >
+          <div class="skin-image-wrapper">
+            <img
+              [src]="getSkinSplashUrl(skin.num)"
+              [alt]="skin.name"
+              loading="lazy"
+              (error)="onImageError($event)"
+            />
+            <div class="skin-overlay">
+              <p class="skin-name">{{ skin.name }}</p>
+            </div>
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+    } @else {
+    <p class="fallback-text">Skin non disponibili.</p>
+    }
+  </div>
+</div>
+}

@@ -1,0 +1,54 @@
+<form>
+  <input
+    type="search"
+    name="search-champion"
+    id="search-champion"
+    placeholder="Search champion..."
+    [(ngModel)]="searchTerm"
+    (input)="search()"
+  />
+</form>
+
+@if (loading()) {
+<div class="loading">
+  <p>Caricamento champion in corso...</p>
+</div>
+} @if (error()) {
+<div class="error">
+  <p>{{ error() }}</p>
+</div>
+}
+
+<div class="champions-grid">
+  @if (filteredChampions().length === 0 && searchTerm() && !loading()) {
+  <div class="no-results">
+    <p>
+      No champions found for "<strong>{{ searchTerm() }}</strong
+      >"
+    </p>
+  </div>
+  } @for (champion of filteredChampions(); track champion.id) {
+  <div class="champion-card" [routerLink]="['/champion', champion.id]">
+    <div class="champion-image-wrapper">
+      <img
+        [src]="
+          'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/' + champion.id + '_0.jpg'
+        "
+        [alt]="champion.name"
+        class="champion-image"
+        loading="lazy"
+      />
+      <div class="champion-overlay">
+        <p class="champion-tags">
+          {{ champion.tags?.join(', ') || 'Champion' }}
+        </p>
+      </div>
+    </div>
+
+    <div class="champion-info">
+      <h3>{{ champion.name }}</h3>
+      <p class="title">{{ champion.title }}</p>
+    </div>
+  </div>
+  }
+</div>

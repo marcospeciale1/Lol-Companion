@@ -1,0 +1,215 @@
+/* ==================== ITEMS LIST ====================
+  - Loading / Error states
+  - Search form and filtering UI
+  - Items grid / card styles and hover interactions
+  - Animations and responsive rules
+*/
+
+/* Copiato e adattato dallo stile di `champion-list` */
+
+/* Loading / Error States */
+.loading {
+  text-align: center;
+  padding: 3rem;
+  color: var(--accent-blue);
+  font-size: 1.2rem;
+  animation: fadeIn 0.6s ease-out;
+}
+
+.loading p {
+  margin: 0;
+  text-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+}
+
+.error {
+  text-align: center;
+  padding: 2rem;
+  color: #ff6b6b;
+  background: rgba(255, 107, 107, 0.1);
+  border: 1px solid rgba(255, 107, 107, 0.3);
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+.error p {
+  margin: 0;
+}
+
+/* Search Form */
+form {
+  display: flex;
+  gap: 1rem;
+  margin: 2rem 0;
+  padding: 1.2rem;
+  background: linear-gradient(135deg, rgba(26, 31, 58, 0.8) 0%, rgba(10, 14, 39, 0.8) 100%);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  border-radius: 8px;
+}
+
+form input {
+  flex: 1;
+  padding: 0.8rem 1.2rem;
+  background: rgba(10, 14, 39, 0.9);
+  border: 1px solid rgba(0, 212, 255, 0.4);
+  border-radius: 6px;
+  color: var(--text-primary);
+  font-size: 1rem;
+  outline: none;
+}
+
+form input::placeholder {
+  color: var(--text-secondary);
+}
+
+form input:focus {
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 16px rgba(0, 212, 255, 0.3);
+  background: rgba(10, 14, 39, 0.95);
+}
+
+/* No Results Message */
+.no-results {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--accent-blue);
+  font-size: 1.2rem;
+  animation: fadeIn 0.6s ease-out;
+}
+
+.no-results p {
+  margin: 0;
+}
+
+/* Items Grid - Card Style like LOL champions */
+.items-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* ridotto min-width */
+  gap: 1rem; /* spazio tra le card */
+  margin-top: 1rem;
+  padding: 0.5rem;
+}
+
+.item-card {
+  display: flex;
+  flex-direction: column;
+  background: rgba(10, 14, 39, 0.95);
+  border: 2px solid rgba(0, 212, 255, 0.08);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: all 0.28s ease;
+  cursor: pointer;
+  animation: slideUp 0.45s ease-out;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+  height: 100%;
+}
+
+.item-card:hover {
+  border-color: var(--accent-blue);
+  box-shadow: 0 6px 14px rgba(0, 212, 255, 0.18);
+  transform: translateY(-3px);
+}
+
+/* Image Wrapper with Overlay */
+.item-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 120px; /* ridotto da 150px a 120px */
+  overflow: hidden;
+  background: linear-gradient(135deg, #1a1f3a 0%, #0a0e27 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.item-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  transition: transform 0.24s ease;
+}
+
+.item-card:hover .item-image {
+  transform: scale(1.03); /* leggero ingrandimento al passaggio */
+}
+
+/* Overlay with Tags */
+.item-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(0, 0, 0, 0.9) 60%,
+    rgba(0, 0, 0, 0.95) 100%
+  );
+  padding: 0.5rem 0.5rem 0.4rem;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: all 0.16s ease;
+}
+
+.item-card:hover .item-overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.item-tags {
+  color: var(--accent-gold);
+  font-size: 0.72rem; /* leggermente più piccolo */
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.32px;
+  margin: 0;
+  text-shadow: 0 0 4px rgba(255, 215, 0, 0.3);
+}
+
+/* Item Info */
+.item-info {
+  flex: 1;
+  padding: 0.7rem 0.6rem;
+  background: linear-gradient(180deg, rgba(26, 31, 58, 0.7) 0%, rgba(10, 14, 39, 0.9) 100%);
+  border-top: 1px solid rgba(0, 212, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.item-info h3 {
+  color: var(--accent-blue);
+  font-size: 0.86rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 0.25rem 0;
+}
+
+.item-info .title {
+  color: var(--text-secondary);
+  font-size: 0.68rem;
+  margin: 0;
+  font-style: italic;
+}
+
+/* Animations */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
