@@ -1,64 +1,77 @@
-# Architettura del Progetto
+# Project Architecture
 
-Il progetto segue un'architettura modulare Angular con chiara separazione tra logica, componenti e dati.
+The project follows a modular Angular architecture with a clear separation between logic, components, and data.
 
-## ⛓️ Struttura Principale
+## ⛓️ Main Structure
 
-- **core/** → servizi, modelli, funzioni utilità
-- **features/** → moduli funzionali (champions, items, runes)
-- **shared/** → componenti riutilizzabili
-- **app/** → configurazione principale e root component
+- **core/** → services, models, utility functions
+- **features/** → functional modules (champions, items, runes)
+- **shared/** → reusable components
+- **app/** → main configuration and root component
 
 ## 🧩 app/
 
-### app.ts  
-Componente root dell’app.
+### app.ts
 
-### app.routes.ts  
-Definisce le route principali:
+Root component of the application.
+
+### app.routes.ts
+
+Defines main routes:
+
 - /champions
 - /items
 - /runes
 
-### app.config.ts  
-Configura router e provider.
+### app.config.ts
+
+Configures the router and providers.
 
 ## 🔧 core/
 
-### models/  
-Modelli TypeScript per tipizzare:
-- champions  
-- items  
-- runes  
+### models/
 
-### services/  
-`lol-api.service.ts` gestisce:
-- recupero dati
-- normalizzazione
-- eventuale caching
-- separazione UI/logica
+TypeScript models for typing:
+
+- champions
+- items
+- runes
+
+### services/
+
+`lol-api.service.ts` handles:
+
+- data retrieval
+- normalization
+- optional caching
+- separation of UI and business logic
 
 ## 🧱 features/
 
-Ogni sezione ha:
-- lista
-- dettaglio
-- servizio dedicato
-- test `.spec.ts`
+Each feature section includes:
+
+- list view
+- detail view
+- dedicated service
+- `.spec.ts` tests
 
 ## 🧩 shared/
 
-### navbar/  
-Navigazione principale.
+### navbar/
 
-### footer/  
-Footer globale.
+Main navigation component.
 
-### pipes/  
-Pipe personalizzate come `format-ability-text.pipe.ts`.
+### footer/
 
-## 🎯 Principi chiave
-- Modularità
+Global footer component.
+
+### pipes/
+
+Custom pipes, e.g., `format-ability-text.pipe.ts`.
+
+## 🎯 Key Principles
+
+- Modularity
 - Separation of concerns
-- Scalabilità
-- Testabilità
+- Scalability
+- Testability

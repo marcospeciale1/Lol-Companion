@@ -28,7 +28,7 @@ export class ChampionService {
     return this.http.get<any>(`${this.dataUrl}/champion/${name}.json`).pipe(
       map((response) => response.data?.[name]),
       catchError((err) => {
-        // If the direct fetch fails (often due to case mismatch), fall back to the full champion list
+        // Fallback to searching in the full champion list if not found
         if (err && err.status === 404) {
           return this.http.get<any>(`${this.dataUrl}/champion.json`).pipe(
             map((listResp) => {
