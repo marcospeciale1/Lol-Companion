@@ -62,7 +62,6 @@ export class ChampionService {
   getAbilityIconUrl(imageName: string): string {
     if (!imageName) return '';
     if (imageName.startsWith('http')) return imageName;
-    // Use the CDN path for spell icons (not under the data/en_US path)
     const url = `https://ddragon.leagueoflegends.com/cdn/${this.version}/img/spell/${imageName}`;
     return url;
   }

@@ -19,7 +19,6 @@ import { Subscription } from 'rxjs';
 })
 export class RuneList implements OnInit, OnDestroy {
   private readonly ddVersion = '15.23.1';
-  private readonly ddCdnBase = `https://ddragon.leagueoflegends.com/cdn/${this.ddVersion}`;
 
   runes = signal<RunesReforged[]>([]);
   searchTerm = signal('');
@@ -71,8 +70,7 @@ export class RuneList implements OnInit, OnDestroy {
         this.loading.set(false);
         console.log('[RuneList] loaded rune trees:', arr.length);
       },
-      (err) => {
-        console.error('[RuneList] failed to load runes', err);
+      () => {
         this.error.set('Impossibile caricare le rune');
         this.loading.set(false);
       }

@@ -16,7 +16,7 @@
 </div>
 }
 
-<!-- Champion Detail / Fallback -->
+<!-- Champion Detail -->
 @if (!loading && champion) {
 <div class="champion-detail-container">
   <!-- Hero Section -->
@@ -34,8 +34,10 @@
     "
   >
     <div class="hero-overlay"></div>
+
     <div class="hero-content">
       <a routerLink="/champions" class="btn-back">← Torna ai campioni</a>
+
       <h1>{{ champion?.name || 'Campione non trovato' }}</h1>
       <p class="title">{{ champion?.title || '' }}</p>
 
@@ -55,6 +57,7 @@
       @if (champion?.info) {
       <div class="card">
         <h2>Statistiche di Combattimento</h2>
+
         <div class="combat-stats">
           @for (key of ['attack', 'defense', 'magic', 'difficulty']; track key) {
           <div class="stat-row">
@@ -75,13 +78,21 @@
       @if (champion?.stats) {
       <div class="card">
         <h2>Statistiche di Base</h2>
+
         <div class="base-stats">
           @for (stat of ['hp', 'mp', 'armor', 'spellblock', 'attackdamage', 'movespeed']; track
           stat) {
+
           <div class="base-stat">
+            @if (stat === 'spellblock') {
+            <span class="label">Magic Resist</span>
+            <span class="value">{{ champion?.stats?.[stat] }}</span>
+            } @else {
             <span class="label">{{ stat | titlecase }}</span>
             <span class="value">{{ champion?.stats?.[stat] }}</span>
+            }
           </div>
+
           }
         </div>
       </div>
@@ -92,7 +103,9 @@
       <!-- Lore -->
       <div class="card">
         <h2>Lore</h2>
-        <p class="lore">{{ champion?.lore || champion?.blurb || 'Lore non disponibile.' }}</p>
+        <p class="lore">
+          {{ champion?.lore || champion?.blurb || 'Lore non disponibile.' }}
+        </p>
       </div>
     </div>
 
@@ -107,21 +120,14 @@
             [alt]="champion.passive?.name"
             class="ability-icon passive-icon"
             (error)="onImageError($event)"
-            style="
-              width: 64px;
-              height: 64px;
-              object-fit: contain;
-              background: #222;
-              border-radius: 8px;
-              border: 2px solid #444;
-              margin-right: 12px;
-            "
           />
+
           <div>
             <h3>{{ champion.passive?.name }}</h3>
             <p class="ability-type">Passiva</p>
           </div>
         </div>
+
         <p class="description">{{ champion.passive?.description }}</p>
       </div>
       } @else {
@@ -186,6 +192,7 @@
               loading="lazy"
               (error)="onImageError($event)"
             />
+
             <div class="skin-overlay">
               <p class="skin-name">{{ skin.name }}</p>
             </div>
