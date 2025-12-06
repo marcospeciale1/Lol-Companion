@@ -11,7 +11,7 @@
 
 @if (loading()) {
 <div class="loading">
-  <p>Caricamento oggetti in corso...</p>
+  <p>Loading Items...</p>
 </div>
 } @if (error()) {
 <div class="error">
@@ -23,8 +23,8 @@
   @if (filtered().length === 0 && searchTerm() && !loading()) {
   <div class="no-results">
     <p>
-      Nessun oggetto trovato per "<strong>{{ searchTerm() }}</strong
-      >"
+      No items found for "<strong>{{ searchTerm() }}</strong
+      >" >"
     </p>
   </div>
   } @for (item of filtered(); track item.id) {

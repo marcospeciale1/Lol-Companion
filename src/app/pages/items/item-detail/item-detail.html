@@ -3,7 +3,7 @@
 <div class="loading-state">
   <div class="loading-container">
     <div class="spinner"></div>
-    <p>Caricamento oggetto...</p>
+    <p>Loading Item...</p>
   </div>
 </div>
 }
@@ -22,7 +22,7 @@
   <!-- Hero Section -->
   <div class="hero-section">
     <div class="hero-content">
-      <a routerLink="/items" class="btn-back">← Torna agli oggetti</a>
+      <a routerLink="/items" class="btn-back">← Back to Items</a>
 
       <div class="hero-main">
         <img
@@ -47,17 +47,16 @@
   <div class="content-wrapper">
     <!-- Left Column -->
     <div class="left-column">
-      <!-- Descrizione -->
+      <!-- Description -->
       <div class="card">
-        <h2>Descrizione</h2>
+        <h2>Description</h2>
         <p class="full-description">{{ item.plaintext }}</p>
       </div>
 
-      <!-- Statistiche -->
+      <!-- Statistics -->
       @if (filteredStats && objectKeys(filteredStats).length > 0) {
       <div class="card">
-        <h2>Statistiche</h2>
-
+        <h2>Statistics</h2>
         <div class="stats-list">
           @for (key of objectKeys(filteredStats); track key) {
           <div class="stat-row">
@@ -70,16 +69,16 @@
 
       } @else {
       <div class="card">
-        <p class="fallback-text">Nessuna statistica.</p>
+        <p class="fallback-text">No statistics available.</p>
       </div>
       }
     </div>
 
     <!-- Right Column -->
     <div class="right-column">
-      <!-- Componenti Richiesti (From) -->
+      <!-- Required Components (From) -->
       <div class="card">
-        <h2>Componenti Richiesti</h2>
+        <h2>Required Components</h2>
 
         @if (item._fromItems && item._fromItems.length > 0) {
         <div class="components-grid">
@@ -100,13 +99,13 @@
         </div>
 
         } @else {
-        <p class="fallback-text">Nessun componente.</p>
+        <p class="fallback-text">No required components.</p>
         }
       </div>
 
-      <!-- Oggetti che lo usano (Into) -->
+      <!-- Items that use this (Into) -->
       <div class="card">
-        <h2>Oggetti che lo usano</h2>
+        <h2>Items that use this</h2>
 
         @if (item._intoItems && item._intoItems.length > 0) {
         <div class="components-grid">
@@ -127,7 +126,7 @@
         </div>
 
         } @else {
-        <p class="fallback-text">Non usato per altri oggetti.</p>
+        <p class="fallback-text">Not used in other items.</p>
         }
       </div>
     </div>

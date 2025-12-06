@@ -12,8 +12,8 @@ import { RunesReforged } from '../models/rune.model';
   providedIn: 'root',
 })
 export class RuneService {
-  private readonly version = '15.23.1';
-  private readonly dataUrl = `https://ddragon.leagueoflegends.com/cdn/${this.version}/data/it_IT`;
+  private readonly version = '15.24.1';
+  private readonly dataUrl = `https://ddragon.leagueoflegends.com/cdn/${this.version}/data/en_US`;
 
   constructor(private http: HttpClient) {}
 

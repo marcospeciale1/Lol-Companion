@@ -3,7 +3,7 @@
 <div class="loading-state">
   <div class="loading-container">
     <div class="spinner"></div>
-    <p>Caricamento campione...</p>
+    <p>Loading Champion...</p>
   </div>
 </div>
 }
@@ -12,7 +12,7 @@
 @if (!loading && error) {
 <div class="error-container">
   <p>{{ error }}</p>
-  <a routerLink="/champions" class="btn-back">Torna ai campioni</a>
+  <a routerLink="/champions" class="btn-back">Back to Champions</a>
 </div>
 }
 
@@ -36,9 +36,9 @@
     <div class="hero-overlay"></div>
 
     <div class="hero-content">
-      <a routerLink="/champions" class="btn-back">← Torna ai campioni</a>
+      <a routerLink="/champions" class="btn-back">← Back to Champions</a>
 
-      <h1>{{ champion?.name || 'Campione non trovato' }}</h1>
+      <h1>{{ champion?.name || 'Champion Not Found' }}</h1>
       <p class="title">{{ champion?.title || '' }}</p>
 
       <div class="tags">
@@ -56,7 +56,7 @@
       <!-- Combat Stats -->
       @if (champion?.info) {
       <div class="card">
-        <h2>Statistiche di Combattimento</h2>
+        <h2>Combat Stats</h2>
 
         <div class="combat-stats">
           @for (key of ['attack', 'defense', 'magic', 'difficulty']; track key) {
@@ -71,13 +71,13 @@
         </div>
       </div>
       } @else {
-      <p class="fallback-text">Statistiche non disponibili.</p>
+      <p class="fallback-text">Stats not available.</p>
       }
 
       <!-- Base Stats -->
       @if (champion?.stats) {
       <div class="card">
-        <h2>Statistiche di Base</h2>
+        <h2>Base Stats</h2>
 
         <div class="base-stats">
           @for (stat of ['hp', 'mp', 'armor', 'spellblock', 'attackdamage', 'movespeed']; track
@@ -97,14 +97,14 @@
         </div>
       </div>
       } @else {
-      <p class="fallback-text">Statistiche di base non disponibili.</p>
+      <p class="fallback-text">Base Stats not available.</p>
       }
 
       <!-- Lore -->
       <div class="card">
         <h2>Lore</h2>
         <p class="lore">
-          {{ champion?.lore || champion?.blurb || 'Lore non disponibile.' }}
+          {{ champion?.lore || champion?.blurb || 'Lore not available.' }}
         </p>
       </div>
     </div>
@@ -131,7 +131,7 @@
         <p class="description">{{ champion.passive?.description }}</p>
       </div>
       } @else {
-      <p class="fallback-text">Passiva non disponibile.</p>
+      <p class="fallback-text">Passive not available.</p>
       }
 
       <!-- Spells -->
@@ -167,7 +167,7 @@
         }
       </div>
       } @else {
-      <p class="fallback-text">Abilità non disponibili.</p>
+      <p class="fallback-text">Abilities not available.</p>
       }
     </div>
   </div>
@@ -202,7 +202,7 @@
       </div>
     </div>
     } @else {
-    <p class="fallback-text">Skin non disponibili.</p>
+    <p class="fallback-text">Skins not available.</p>
     }
   </div>
 </div>

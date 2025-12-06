@@ -11,8 +11,8 @@ import { Observable, map, shareReplay } from 'rxjs';
   providedIn: 'root',
 })
 export class ItemService {
-  private readonly version = '15.23.1';
-  private readonly dataUrl = `https://ddragon.leagueoflegends.com/cdn/${this.version}/data/it_IT`;
+  private readonly version = '15.24.1';
+  private readonly dataUrl = `https://ddragon.leagueoflegends.com/cdn/${this.version}/data/en_US`;
   private itemsCache$: Observable<any> | null = null;
 
   // Mapping per tradurre i nomi delle statistiche
